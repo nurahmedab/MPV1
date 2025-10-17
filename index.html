@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the world of Nurahmed</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+</head>
+<body>
+    <canvas id="shooting-star-bg"></canvas>
+
+    <div id = "main-content">
+    <!-- ...existing code... -->    
+    <nav id = "desktop-nav">
+        <video autoplay muted playsinline loop id = "bg-video">
+            <!--<source src = "./files/NeuronCircuitDemo.mov" type = "video/mp4"> -->
+        </video>
+
+        <div class = "logo"></div>
+        <div>
+            <ul class = "nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav id = "hamburger-nav">
+        <div class = "logo"> </div>
+        <div class = "hamburger-menu">
+            <div class = "hamburger-icon" onclick = "toggleMenu()">
+               <span></span>
+               <span></span>
+               <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="#about" onclick = "toggleMenu()">About</a></li>
+                <li><a href="#skills" onclick = "toggleMenu()">Experience</a></li>
+                <li><a href="#projects" onclick = "toggleMenu()">Projects</a></li>
+                <li><a href="#contact" onclick = "toggleMenu()">Contact</a></li>
+            </div>
+    </nav>
+    <section id = "profile">
+        <!--
+        <div class = "section_pic-container">
+            <img src = "./files/nurahmedProfile.jpeg" alt="nurahmed profile picture">
+        </div>
+        -->
+        
+        <div class = "section_text">
+            <p class = "thank_you"> Thanks for checking out my portfolio! Whether you’re a recruiter, fellow engineer, friend, or lost stranger, I hope you enjoy the ride.</p>
+            <p class="section_text_p1"> Hello, I'm </p>
+            <h1 class="title"> Nurahmed Multezem </h1>
+            <p class="section_text_p2"> A passionate computer engineer interested in embedded systems. </p>
+            <div class = "btn-container">
+                <button
+                    class="btn btn-color-2"
+                    onclick="window.open('./files/NurahmedMultezemResume.pdf')"
+                >
+
+                Download Resume
+                </button> 
+                <button
+                    class = "btn btn-color-1" onclick="location.href = './#contact'"
+                >
+                Contact Info
+                </button>
+
+            </div>
+            <div id = "socails-container">
+                <img 
+                    src="./files/linkedin.png" 
+                    alt = "My LinkedIn Profile"
+                    class = "icon" 
+                    onclick="location.href = '//linkedin.com/in/nurahmed-multezem/'"
+                    />
+                <img 
+                    src="./files/github.png" 
+                    alt = "My GitHub Profile"
+                    class = "icon" 
+                    onclick="location.href = '//github.com/nurahmed-multezem/'"
+                />
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience-section">
+  <h2 class="section-title">EXPERIENCE</h2>
+
+  <!-- Company Logo Bar -->
+  <div class="logo-bar">
+    <img src="Esurgi.png" alt="Esurgi">
+    <img src="INSPIRE.png" alt="INSPIRE">
+    <img src="UMD.png" alt="UMD">
+    <img src="MC.png" alt="MC">
+    <img src="LSPACE.png" alt="L'SPACE">
+  </div>
+
+  <!-- Experience Timeline -->
+   
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-icon">
+         <img src="Esurgi.png" width="20%" height="20%" alt="Esurgi">
+      </div>
+      <div class="timeline-content">
+        <p>Esurgi – Hardware Engineering Intern</p>
+        <p>The Biostabilizer, a digital biofeedback device. 
+          Read more about it <a href="https://more-esurgi.com"> here </a>.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">INSPIRE Lab- Undergraduate Research Fellow</div>
+      <div class="timeline-content">
+        <img src="INSPIRE.png" width="20%" height="20%" alt="INSPIRE Lab">
+        <p>Analyzing functional Magnetic Resonance Imaging fMRI data from the Human Connectome Project
+          <a href="https://more-INSPIRE.com"> here </a>.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-icon">Computational Sensorimotor Systems Lab - Firmware/Embedded Engineer Intern</div>
+      <div class="timeline-content">
+        <img src="CSSL.png" width="40%" height="40%" alt="Computational Sensorimotor Systems Lab">
+        <p>Hand Gesture Recognition and Pointing Direction Wearable
+          <a href="https://more-INSPIRE.com"> here </a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+    <script src="script.js"></script>
+    </div>
+</body>
+</html>
