@@ -40,7 +40,7 @@ a,
 #desktop-nav {
   position: relative;
   width: 100%;
-  height: 50vh;        /* navbar height as you specified */
+  height: 20vh;        /* navbar height as you specified */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +51,40 @@ a,
 }
 
 
+nav,
+.nav-links {
+  display: flex;
+}
 
+nav {
+  justify-content: space-around;
+  align-items: center;
+  height: 60vh;
+}
+
+.nav-links {
+  top: 20%;
+  gap: 2rem;
+  list-style: none;
+  font-size: 1.5rem;
+}
+
+.nav-links li a {
+  display: inline-block; /* important fix */
+  color: black;
+  text-decoration: none;
+}
+
+.nav-links li a:hover {
+  color: gray;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+  text-decoration-color: rgb(181,181,181);
+}
+
+
+/*
 
 nav, 
 .nav-links{
@@ -61,12 +94,12 @@ nav,
 nav{
     justify-content: space-around;
     align-items: center;
-    height: 60vh; /* 17% of viewport height */
+    height: 60vh; 
 }
 
 .nav-links{
     top: 20%;
-    gap: 2rem; /* space between links */
+    gap: 2rem;
     list-style: none;
     font-style: 1.5rem;    
 
@@ -75,8 +108,7 @@ nav{
 a {
     
     color: black;
-    text-decoration: underline;
-    text-decoration: white;
+    text-decoration: none;
 
 }
 
@@ -86,6 +118,8 @@ a:hover{
     text-underline-offset: 0.3rem;
     text-decoration-color: rgb(181,181,181);
 }
+
+*/
 
 .logo{
     font-size: 3rem;
@@ -240,12 +274,15 @@ section{
 }
 
 .section_text{
+    position: absolute;
+    top: 10rem;
     align-self: center;
     text-align: center;
+    
 }
 
 .section_text p{
-    font-weight: 600;
+    font-weight: 400;
 }
 
 
@@ -319,7 +356,7 @@ section{
 }
 
 .btn-container{
-    gap: 1rem;
+    gap: 10rem;
 }
 
 
