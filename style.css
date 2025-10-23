@@ -323,7 +323,7 @@ section{
 }
 
 .btn{
-    padding: 1rem;
+    padding: 1rem; 
     border-radius: 8px;
     font-weight: 600;
     width: 8rem;
@@ -356,7 +356,7 @@ section{
 }
 
 .btn-container{
-    gap: 10rem;
+    gap: 3rem; /* increase gap between buttons */
 }
 
 
