@@ -89,6 +89,44 @@
         </div>
     </section>
 
+    
+
+    <div class="scroll-bar">
+            <svg width="70" height="400" viewBox="0 0 70 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Glow filter for neon effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Gradient for zigzag line -->
+    <linearGradient id="zigzag-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00ffe7"/>
+      <stop offset="100%" stop-color="#1af0d1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Zigzag line -->
+  <path id="zigzag" d="M60,5 L5,90 L60,180 L5,270 L60,360" 
+        stroke="url(#zigzag-gradient)" stroke-width="10" fill="none" filter="url(#glow)" />
+
+  <!-- Glowing circle at top corner -->
+  <circle id="led" cx="60" cy="5" r="10" fill="#00ffe7" filter="url(#glow)" />
+
+  <circle cx="60" cy="5" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
+  <circle cx="5" cy="90" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
+  <circle cx="60" cy="180" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
+  <circle cx="5" cy="270" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
+  <circle cx="60" cy="360" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
+
+</svg>
+
+    </div>
+
     <section id="experience" class="experience-section">
   <h2 class="section-title">EXPERIENCE</h2>
 
@@ -101,9 +139,7 @@
     <img src="LSPACE.png" alt="L'SPACE">
   </div>
 
-  <svg width="60" height="400" viewBox="0 0 60 400" xmlns="http://www.w3.org/2000/svg">
-    <path d="M30,0 L30,400" stroke="white" stroke-width="4" fill="white" />
-  </svg>
+  
 
 
   <!-- Experience Timeline -->

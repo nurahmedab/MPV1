@@ -591,3 +591,18 @@ nav, .menu-links {
 .timeline-item:nth-child(even) {
   animation-delay: 0.4s;
 }
+
+
+svg {
+    position: fixed;       /* keeps it in place while scrolling */
+    right: 20px;           /* distance from the right edge */
+    top: 150px;            /* distance from the top edge */
+    z-index: 1000;         /* ensures it’s on top */
+}
+
+/*
+svg {
+  border: 1px solid red;
+  background: rgba(255,0,0,0.1);
+}
+*/

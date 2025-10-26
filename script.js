@@ -247,5 +247,28 @@ function animateBall() {
 animateBall();
 */
 
-});
 
+const circle = document.getElementById("led");
+    const path = document.getElementById("zigzag");
+    const pathLength = path.getTotalLength();
+    const experienceSection = document.getElementById("experience");
+
+    circle.setAttribute("cx", 60);
+    circle.setAttribute("cy", 5);
+
+    window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+        const experienceTop = experienceSection.offsetTop;
+
+        let progress;
+        if(scrollTop < experienceTop) {
+            progress = scrollTop / experienceTop;
+        } else {
+            progress = 1;
+        }
+
+        const point = path.getPointAtLength(pathLength * progress);
+        circle.setAttribute("cx", point.x);
+        circle.setAttribute("cy", point.y);
+    });
+});
