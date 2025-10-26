@@ -209,5 +209,43 @@ window.addEventListener('DOMContentLoaded', () => {
     introStar.y = 0;
 
     animate();
+
+/*
+const ball = document.getElementById('ball');
+
+// Points along the zigzag pipe
+const points = [
+  {x:33, y:40},
+  {x:33, y:80},
+  {x:33, y:120},
+  {x:33, y:160},
+  {x:33, y:200}
+];
+
+let index = 0;
+let speed = 0.05;
+
+function animateBall() {
+  let target = points[index];
+  let cx = parseFloat(ball.getAttribute('cx'));
+  let cy = parseFloat(ball.getAttribute('cy'));
+
+  let dx = target.x - cx;
+  let dy = target.y - cy;
+
+  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) {
+    index = (index + 1) % points.length;
+    target = points[index];
+  }
+
+  ball.setAttribute('cx', cx + dx * speed);
+  ball.setAttribute('cy', cy + dy * speed);
+
+  requestAnimationFrame(animateBall);
+}
+
+animateBall();
+*/
+
 });
 
