@@ -3,179 +3,485 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the world of Nurahmed</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="mediaqueries.css">
+    <title>Dev's Dynamic Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for aesthetic components -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom styles for Inter font and smooth scrolling */
+        :root {
+            --primary-color: #0d9488; /* Teal-600 */
+            --background-color: #0a0a0a; /* Neutral-950 */
+            --text-color: #f3f4f6; /* Gray-100 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        /* Styling for the unique scroll tracker */
+        .scroll-tracker-dot {
+            transition: all 0.3s ease-out;
+            cursor: pointer;
+            position: relative;
+            z-index: 10; /* Ensures dots are above the line */
+        }
+        .scroll-tracker-dot.active {
+            transform: scale(1.5);
+            box-shadow: 0 0 15px var(--primary-color);
+            border-color: white !important;
+        }
+
+        /* The vertical line that connects the dots */
+        .scroll-tracker-line {
+            width: 2px;
+            background-color: rgba(255, 255, 255, 0.2);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        /* The fill element inside the line */
+        .scroll-tracker-fill {
+            width: 100%;
+            background-color: var(--primary-color);
+            transition: height 0.1s linear; /* Fast update on scroll */
+        }
+
+        /* Ensure smooth animation for interactive elements */
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.3);
+        }
+
+        /* Hide scrollbar on desktop but not required, just an idea */
+        /* body::-webkit-scrollbar { display: none; } */
+
+    </style>
 </head>
-<body>
-    <canvas id="shooting-star-bg"></canvas>
+<body class="antialiased">
 
-    <div id = "main-content">
-    <!-- ...existing code... -->    
-    <nav id = "desktop-nav">
-        <video autoplay muted playsinline loop id = "bg-video">
-            <!--<source src = "./files/NeuronCircuitDemo.mov" type = "video/mp4"> -->
-        </video>
+    <!-- Navbar (Sticky & Responsive) -->
+    <header class="sticky top-0 z-50 bg-neutral-950/95 backdrop-blur-sm shadow-xl border-b border-teal-700/50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo/Name -->
+                <div class="flex items-center">
+                    <a href="#home" class="text-2xl font-extrabold tracking-tight text-teal-400 hover:text-teal-300 transition duration-300">
+                        &lt;Dev /&gt;
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link text-gray-300 hover:bg-teal-700/50 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300" data-section="home">Home</a>
+                        <a href="#experience" class="nav-link text-gray-300 hover:bg-teal-700/50 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300" data-section="experience">Experience</a>
+                        <a href="#projects" class="nav-link text-gray-300 hover:bg-teal-700/50 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300" data-section="projects">Projects</a>
+                        <a href="#volunteer" class="nav-link text-gray-300 hover:bg-teal-700/50 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300" data-section="volunteer">Volunteer</a>
+                        <a href="#contact" class="nav-link text-gray-300 hover:bg-teal-700/50 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-300" data-section="contact">Contact</a>
+                    </div>
+                </div>
+                <!-- Hamburger Button (Mobile) -->
+                <div class="-mr-2 flex md:hidden">
+                    <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-teal-400 hover:text-white hover:bg-teal-800/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition duration-300" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" id="menu-icon-open" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                        <svg class="hidden h-6 w-6" id="menu-icon-close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div class="md:hidden" id="mobile-menu" style="display: none;">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-teal-700/50 hover:text-white transition duration-300" data-section="home">Home</a>
+                    <a href="#experience" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-teal-700/50 hover:text-white transition duration-300" data-section="experience">Experience</a>
+                    <a href="#projects" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-teal-700/50 hover:text-white transition duration-300" data-section="projects">Projects</a>
+                    <a href="#volunteer" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-teal-700/50 hover:text-white transition duration-300" data-section="volunteer">Volunteer</a>
+                    <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-teal-700/50 hover:text-white transition duration-300" data-section="contact">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-        <div class = "logo"></div>
-        <div>
-            <ul class = "nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <nav id = "hamburger-nav">
-        <div class = "logo"> </div>
-        <div class = "hamburger-menu">
-            <div class = "hamburger-icon" onclick = "toggleMenu()">
-               <span></span>
-               <span></span>
-               <span></span>
+    <!-- Main Content Sections -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section: Home -->
+        <section id="home" class="min-h-screen pt-20 flex flex-col justify-center items-center text-center">
+            <h1 class="text-6xl sm:text-7xl lg:text-8xl font-extrabold text-white mb-4 leading-tight">
+                Hi, I'm <span class="text-teal-400">Dev</span>.
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-400 max-w-3xl mb-12">
+                A Full-Stack Developer passionate about creating highly interactive, scalable, and beautiful web applications.
+            </p>
+            <a href="#projects" class="px-8 py-4 bg-teal-600 text-white font-semibold text-lg rounded-full shadow-lg hover:bg-teal-500 transition duration-300 hover-lift flex items-center">
+                View My Work
+                <i data-lucide="arrow-right" class="ml-2 w-5 h-5"></i>
+            </a>
+        </section>
+
+        <!-- Section: Experience -->
+        <section id="experience" class="py-20 min-h-screen">
+            <h2 class="text-5xl font-bold text-center mb-16 text-teal-400">Experience</h2>
+            <div class="space-y-12 max-w-4xl mx-auto">
+                <!-- Job 1 -->
+                <div class="p-8 bg-neutral-900 rounded-xl shadow-2xl border-l-4 border-teal-600 hover-lift">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-3xl font-semibold text-white">Senior Software Engineer</h3>
+                        <span class="text-sm text-gray-400 bg-neutral-800 px-3 py-1 rounded-full">2020 - Present</span>
+                    </div>
+                    <p class="text-teal-400 text-xl mb-4">Innovate Solutions Inc.</p>
+                    <p class="text-gray-300">Led a team of 5 developers in redesigning the core product's microservices architecture, resulting in a 40% improvement in latency and a significant reduction in cloud costs. Focused on React and Node.js.</p>
+                </div>
+                <!-- Job 2 -->
+                <div class="p-8 bg-neutral-900 rounded-xl shadow-2xl border-l-4 border-teal-600 hover-lift">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-3xl font-semibold text-white">Junior Web Developer</h3>
+                        <span class="text-sm text-gray-400 bg-neutral-800 px-3 py-1 rounded-full">2018 - 2020</span>
+                    </div>
+                    <p class="text-teal-400 text-xl mb-4">Tech Start-Up Hub</p>
+                    <p class="text-gray-300">Developed and maintained client-facing interfaces using HTML5, CSS3, and vanilla JavaScript. Gained expertise in responsive design and performance optimization.</p>
+                </div>
             </div>
-            <div class="menu-links">
-                <li><a href="#about" onclick = "toggleMenu()">About</a></li>
-                <li><a href="#skills" onclick = "toggleMenu()">Experience</a></li>
-                <li><a href="#projects" onclick = "toggleMenu()">Projects</a></li>
-                <li><a href="#contact" onclick = "toggleMenu()">Contact</a></li>
+        </section>
+
+        <!-- Section: Projects -->
+        <section id="projects" class="py-20 min-h-screen">
+            <h2 class="text-5xl font-bold text-center mb-16 text-teal-400">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Project 1 -->
+                <div class="project-card p-6 bg-neutral-900 rounded-xl shadow-2xl hover-lift">
+                    <i data-lucide="rocket" class="w-8 h-8 text-teal-400 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-white mb-2">Real-time Chat App</h3>
+                    <p class="text-gray-400 mb-4">A serverless chat application built with React and Firestore for instant messaging.</p>
+                    <a href="#" class="text-teal-500 hover:text-teal-300 font-medium transition duration-300">View Demo &rarr;</a>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card p-6 bg-neutral-900 rounded-xl shadow-2xl hover-lift">
+                    <i data-lucide="line-chart" class="w-8 h-8 text-teal-400 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-white mb-2">Data Visualization Tool</h3>
+                    <p class="text-gray-400 mb-4">Uses D3.js to render complex datasets into interactive and digestible charts and graphs.</p>
+                    <a href="#" class="text-teal-500 hover:text-teal-300 font-medium transition duration-300">View Demo &rarr;</a>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card p-6 bg-neutral-900 rounded-xl shadow-2xl hover-lift">
+                    <i data-lucide="gamepad-2" class="w-8 h-8 text-teal-400 mb-4"></i>
+                    <h3 class="text-2xl font-semibold text-white mb-2">3D Physics Simulator</h3>
+                    <p class="text-gray-400 mb-4">A simple 3D environment built with Three.js exploring basic orbital mechanics.</p>
+                    <a href="#" class="text-teal-500 hover:text-teal-300 font-medium transition duration-300">View Demo &rarr;</a>
+                </div>
             </div>
-    </nav>
-    <section id = "profile">
-        <!--
-        <div class = "section_pic-container">
-            <img src = "./files/nurahmedProfile.jpeg" alt="nurahmed profile picture">
+        </section>
+
+        <!-- Section: Volunteer -->
+        <section id="volunteer" class="py-20 min-h-screen">
+            <h2 class="text-5xl font-bold text-center mb-16 text-teal-400">Volunteer Work</h2>
+            <div class="space-y-12 max-w-4xl mx-auto">
+                <!-- Volunteer Role 1 -->
+                <div class="p-8 bg-neutral-900 rounded-xl shadow-2xl border-l-4 border-teal-600 hover-lift">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-3xl font-semibold text-white">Mentor, Code for Kids</h3>
+                        <span class="text-sm text-gray-400 bg-neutral-800 px-3 py-1 rounded-full">2021 - Present</span>
+                    </div>
+                    <p class="text-teal-400 text-xl mb-4">Local Non-Profit</p>
+                    <p class="text-gray-300">Teach basic programming concepts (Python, Scratch) to students aged 10-14, fostering early interest in technology and problem-solving.</p>
+                </div>
+                <!-- Volunteer Role 2 -->
+                <div class="p-8 bg-neutral-900 rounded-xl shadow-2xl border-l-4 border-teal-600 hover-lift">
+                    <div class="flex justify-between items-start">
+                        <h3 class="text-3xl font-semibold text-white">Website Maintenance Lead</h3>
+                        <span class="text-sm text-gray-400 bg-neutral-800 px-3 py-1 rounded-full">2019 - 2021</span>
+                    </div>
+                    <p class="text-teal-400 text-xl mb-4">Community Garden Project</p>
+                    <p class="text-gray-300">Managed and updated the organization's public-facing website, ensuring 99.9% uptime and implementing a new event registration system.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Contact -->
+        <section id="contact" class="py-20 min-h-screen flex flex-col justify-center items-center">
+            <h2 class="text-5xl font-bold text-center mb-16 text-teal-400">Get In Touch</h2>
+            <div class="w-full max-w-lg p-10 bg-neutral-900 rounded-xl shadow-2xl">
+                <p class="text-lg text-gray-300 text-center mb-6">
+                    I am currently open to new opportunities. Send me a message!
+                </p>
+                <!-- Mock Contact Form -->
+                <form class="space-y-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full p-3 border border-neutral-700 rounded-lg bg-neutral-800 text-white focus:ring-teal-500 focus:border-teal-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full p-3 border border-neutral-700 rounded-lg bg-neutral-800 text-white focus:ring-teal-500 focus:border-teal-500">
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-400">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full p-3 border border-neutral-700 rounded-lg bg-neutral-800 text-white focus:ring-teal-500 focus:border-teal-500"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-500 transition duration-300 hover-lift">
+                        Send Message
+                    </button>
+                    <div id="contact-message" class="text-center mt-4 text-sm text-red-400" style="display: none;"></div>
+                </form>
+            </div>
+            <div class="flex space-x-6 mt-8">
+                <a href="#" class="text-teal-400 hover:text-teal-300 transition duration-300"><i data-lucide="github" class="w-7 h-7"></i></a>
+                <a href="#" class="text-teal-400 hover:text-teal-300 transition duration-300"><i data-lucide="linkedin" class="w-7 h-7"></i></a>
+                <a href="#" class="text-teal-400 hover:text-teal-300 transition duration-300"><i data-lucide="mail" class="w-7 h-7"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 py-8 text-center border-t border-neutral-800">
+        <p class="text-gray-500 text-sm">&copy; 2024 Dev's Portfolio. Built with Tailwind CSS and JavaScript.</p>
+    </footer>
+
+    <!-- SCROLL TRACKER (Outside the Box Design) -->
+    <!-- Fixed on the right side, hidden on small screens for better mobile experience -->
+    <div id="scroll-tracker" class="fixed right-0 top-1/2 -translate-y-1/2 mr-4 hidden md:block z-50">
+        <div class="relative flex flex-col items-center h-[350px]">
+            <!-- Vertical Line and Fill (Background) -->
+            <div class="scroll-tracker-line">
+                <div id="tracker-fill" class="scroll-tracker-fill h-0"></div>
+            </div>
+            
+            <!-- Dots (Foreground) -->
+            <a href="#home" data-section="home" class="scroll-tracker-dot w-6 h-6 rounded-full border-2 border-white bg-neutral-950 flex items-center justify-center mb-16 hover:bg-teal-600/50">
+                <i data-lucide="home" class="w-3 h-3 text-teal-400"></i>
+            </a>
+            <a href="#experience" data-section="experience" class="scroll-tracker-dot w-6 h-6 rounded-full border-2 border-gray-500 bg-neutral-950 flex items-center justify-center mb-16 hover:bg-teal-600/50">
+                <i data-lucide="briefcase" class="w-3 h-3 text-gray-400"></i>
+            </a>
+            <a href="#projects" data-section="projects" class="scroll-tracker-dot w-6 h-6 rounded-full border-2 border-gray-500 bg-neutral-950 flex items-center justify-center mb-16 hover:bg-teal-600/50">
+                <i data-lucide="code-square" class="w-3 h-3 text-gray-400"></i>
+            </a>
+            <a href="#volunteer" data-section="volunteer" class="scroll-tracker-dot w-6 h-6 rounded-full border-2 border-gray-500 bg-neutral-950 flex items-center justify-center mb-16 hover:bg-teal-600/50">
+                <i data-lucide="heart" class="w-3 h-3 text-gray-400"></i>
+            </a>
+            <a href="#contact" data-section="contact" class="scroll-tracker-dot w-6 h-6 rounded-full border-2 border-gray-500 bg-neutral-950 flex items-center justify-center hover:bg-teal-600/50">
+                <i data-lucide="send" class="w-3 h-3 text-gray-400"></i>
+            </a>
         </div>
-        -->
+    </div>
+
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Setup & Constants
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        const trackerDots = document.querySelectorAll('.scroll-tracker-dot');
+        const trackerFill = document.getElementById('tracker-fill');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuButton = document.getElementById('menu-button');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const contactForm = document.querySelector('form');
+        const contactMessage = document.getElementById('contact-message');
+
+        const sectionMap = {};
+        sections.forEach(sec => {
+            sectionMap[sec.id] = sec;
+        });
+        const sectionIds = Array.from(sections).map(sec => sec.id);
+
+        // 2. Observer to update active navigation links & tracker dots
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3 // Section is considered active when 30% of it is visible
+        };
+
+        const sectionObserver = new IntersectionObserver((entries) => {
+            let activeSectionId = null;
+
+            // Determine the most visible section
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+                    activeSectionId = entry.target.id;
+                }
+            });
+
+            // Fallback for when no section meets the threshold (e.g., in between sections)
+            if (!activeSectionId) {
+                 // Check which section is closest to the top
+                const scrollY = window.scrollY;
+                let closestSection = null;
+                let minDistance = Infinity;
+
+                sections.forEach(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    // Distance from the top of the viewport
+                    const distance = Math.abs(rect.top);
+
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestSection = sec.id;
+                    }
+                });
+
+                activeSectionId = closestSection;
+            }
+
+            // Update Nav Links
+            navLinks.forEach(link => {
+                link.classList.remove('bg-teal-700/50', 'text-white');
+                link.classList.add('text-gray-300');
+                if (link.getAttribute('data-section') === activeSectionId) {
+                    link.classList.add('bg-teal-700/50', 'text-white');
+                    link.classList.remove('text-gray-300');
+                }
+            });
+
+            // Update Tracker Dots (Visual Highlight)
+            trackerDots.forEach(dot => {
+                const icon = dot.querySelector('i');
+                dot.classList.remove('active', 'border-white');
+                dot.classList.add('border-gray-500');
+                icon.classList.remove('text-teal-400');
+                icon.classList.add('text-gray-400');
+
+                if (dot.getAttribute('data-section') === activeSectionId) {
+                    dot.classList.add('active', 'border-white');
+                    dot.classList.remove('border-gray-500');
+                    icon.classList.add('text-teal-400');
+                    icon.classList.remove('text-gray-400');
+                }
+            });
+
+        }, observerOptions);
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+
+        // 3. Scroll Listener for Tracker Progress Bar
+        const updateTrackerFill = () => {
+            const docHeight = document.documentElement.scrollHeight;
+            const viewportHeight = window.innerHeight;
+            const scrollY = window.scrollY;
+
+            // Total scrollable area
+            const scrollableHeight = docHeight - viewportHeight;
+
+            // Calculate overall scroll percentage
+            if (scrollableHeight > 0) {
+                const scrollPercent = (scrollY / scrollableHeight);
+
+                // We want the tracker to fill the height of its container (350px)
+                const trackerHeight = 350;
+                // Add a small offset so the bar doesn't start filling until scrolling begins
+                const fillHeight = Math.min(trackerHeight, scrollPercent * trackerHeight * 1.05); // *1.05 to overfill slightly
+                trackerFill.style.height = `${fillHeight}px`;
+            } else {
+                trackerFill.style.height = '0px'; // No scrollable content
+            }
+        };
+
+        window.addEventListener('scroll', updateTrackerFill);
+        window.addEventListener('resize', updateTrackerFill);
         
-        <div class = "section_text">
-            <p class = "thank_you"> Thanks for checking out my portfolio! Whether you’re a recruiter, 
-            <p class = "thank_you">fellow engineer, friend, or lost stranger,</p>
-            <p class = "thank_you">I hope you enjoy the ride.</p>                              
-            <p class="section_text_p1">  </p>
-            <h1 class="title"> </h1>
-            <p class="section_text_p2">  </p>
-            <div class = "btn-container">
-                <button
-                    class="btn btn-color-2"
-                    onclick="window.open('./files/NurahmedMultezemResume.pdf')"
-                >
+        // Initial call to set the correct state on load
+        window.onload = () => {
+             // Check if the page is scrolled on load and update tracker
+             updateTrackerFill();
+             // Manually check initial intersection for active state on load
+             // This is a robust way to ensure the first state is correct
+             const checkInitialActive = () => {
+                let currentActive = 'home';
+                sections.forEach(sec => {
+                    const rect = sec.getBoundingClientRect();
+                    // If the top of the section is within 50% of the viewport height
+                    if (rect.top <= window.innerHeight * 0.5) {
+                        currentActive = sec.id;
+                    }
+                });
 
-                Download Resume
-                </button> 
-                <button
-                    class = "btn btn-color-1" onclick="location.href = './#contact'"
-                >
-                Contact Info
-                </button>
+                // Manually trigger updates based on calculated active section
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-section') === currentActive) {
+                        link.classList.add('bg-teal-700/50', 'text-white');
+                        link.classList.remove('text-gray-300');
+                    } else {
+                        link.classList.remove('bg-teal-700/50', 'text-white');
+                        link.classList.add('text-gray-300');
+                    }
+                });
+                trackerDots.forEach(dot => {
+                    const icon = dot.querySelector('i');
+                    if (dot.getAttribute('data-section') === currentActive) {
+                        dot.classList.add('active', 'border-white');
+                        dot.classList.remove('border-gray-500');
+                        icon.classList.add('text-teal-400');
+                        icon.classList.remove('text-gray-400');
+                    } else {
+                        dot.classList.remove('active', 'border-white');
+                        dot.classList.add('border-gray-500');
+                        icon.classList.remove('text-teal-400');
+                        icon.classList.add('text-gray-400');
+                    }
+                });
 
-            </div>
-            <div id = "socails-container">
-                <img 
-                    src="./files/linkedin.png" 
-                    alt = "My LinkedIn Profile"
-                    class = "icon" 
-                    onclick="location.href = '//linkedin.com/in/nurahmed-multezem/'"
-                    />
-                <img 
-                    src="./files/github.png" 
-                    alt = "My GitHub Profile"
-                    class = "icon" 
-                    onclick="location.href = '//github.com/nurahmed-multezem/'"
-                />
-
-            </div>
-        </div>
-    </section>
-
-    
-
-    <div class="scroll-bar">
-            <svg width="70" height="400" viewBox="0 0 70 400" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Glow filter for neon effect -->
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-
-    <!-- Gradient for zigzag line -->
-    <linearGradient id="zigzag-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#00ffe7"/>
-      <stop offset="100%" stop-color="#1af0d1"/>
-    </linearGradient>
-  </defs>
-
-  <!-- Zigzag line -->
-  <path id="zigzag" d="M60,5 L5,90 L60,180 L5,270 L60,360" 
-        stroke="url(#zigzag-gradient)" stroke-width="10" fill="none" filter="url(#glow)" />
-
-  <!-- Glowing circle at top corner -->
-  <circle id="led" cx="60" cy="5" r="10" fill="#00ffe7" filter="url(#glow)" />
-
-  <circle cx="60" cy="5" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="5" cy="90" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="60" cy="180" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="5" cy="270" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="60" cy="360" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-
-</svg>
-
-    </div>
-
-    <section id="experience" class="experience-section">
-  <h2 class="section-title">EXPERIENCE</h2>
-
-  <!-- Company Logo Bar -->
-  <div class="logo-bar">
-    <img src="Esurgi.png" alt="Esurgi">
-    <img src="INSPIRE.png" alt="INSPIRE">
-    <img src="UMD.png" alt="UMD">
-    <img src="MC.png" alt="MC">
-    <img src="LSPACE.png" alt="L'SPACE">
-  </div>
-
-  
+             };
+             checkInitialActive();
+        };
 
 
-  <!-- Experience Timeline -->
-   
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-icon">
-         <img src="Esurgi.png" width="20%" height="20%" alt="Esurgi">
-      </div>
-      <div class="timeline-content">
-        <p>Esurgi – Hardware Engineering Intern</p>
-        <p>The Biostabilizer, a digital biofeedback device. 
-          Read more about it <a href="https://more-esurgi.com"> here </a>.</p>
-      </div>
-    </div>
+        // 4. Hamburger Menu Logic
+        menuButton.addEventListener('click', () => {
+            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+            menuButton.setAttribute('aria-expanded', !isExpanded);
+            
+            if (isExpanded) {
+                mobileMenu.style.display = 'none';
+                menuIconOpen.style.display = 'block';
+                menuIconClose.style.display = 'none';
+            } else {
+                mobileMenu.style.display = 'block';
+                menuIconOpen.style.display = 'none';
+                menuIconClose.style.display = 'block';
+            }
+        });
 
-    <div class="timeline-item">
-      <div class="timeline-icon">INSPIRE Lab- Undergraduate Research Fellow</div>
-      <div class="timeline-content">
-        <img src="INSPIRE.png" width="20%" height="20%" alt="INSPIRE Lab">
-        <p>Analyzing functional Magnetic Resonance Imaging fMRI data from the Human Connectome Project
-          <a href="https://more-INSPIRE.com"> here </a>.</p>
-      </div>
-    </div>
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuIconOpen.style.display = 'block';
+                menuIconClose.style.display = 'none';
+            });
+        });
 
-    <div class="timeline-item">
-      <div class="timeline-icon">Computational Sensorimotor Systems Lab - Firmware/Embedded Engineer Intern</div>
-      <div class="timeline-content">
-        <img src="CSSL.png" width="40%" height="40%" alt="Computational Sensorimotor Systems Lab">
-        <p>Hand Gesture Recognition and Pointing Direction Wearable
-          <a href="https://more-INSPIRE.com"> here </a>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-    <script src="script.js"></script>
-    </div>
+        // 5. Contact Form (Mock Submission)
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            contactMessage.style.display = 'block';
+            contactMessage.textContent = 'Thank you for your message! This is a demo submission. I will get back to you soon.';
+            contactMessage.classList.remove('text-red-400');
+            contactMessage.classList.add('text-teal-400');
+
+            // Clear the form after a short delay
+            setTimeout(() => {
+                contactForm.reset();
+                contactMessage.style.display = 'none';
+            }, 3000);
+        });
+
+    </script>
 </body>
 </html>
