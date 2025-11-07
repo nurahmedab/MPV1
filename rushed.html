@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive EE Portfolio - Nurahmed Multezem (Rushed Mode)</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for responsive UI elements --><script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': 'var(--bg-color)',
+                        'primary-text': 'var(--text-color)',
+                        'primary-accent': 'var(--accent-color)',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base styles for the "Rushed (Focus)" theme */
+        
+        :root {
+            /* Rushed (Focus) Theme Variables */
+            --bg-color: #1C1C1C;
+            --text-color: #FFFFFF;
+            --accent-color: #F44336; /* Focus Red */
+            --secondary-accent: #FFEB3B; /* Focus Yellow */
+            --border-color: #3A3A3A; 
+            --box-bg: #101010;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            /* Enable smooth scrolling for anchor links */
+            scroll-behavior: smooth; 
+        }
+        
+        /* Scroll Tracker Style */
+        #scroll-tracker {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 4px; 
+            background-color: transparent; 
+            z-index: 50;
+            height: 100vh;
+        }
+        
+        #scroll-progress {
+            background-color: var(--accent-color); 
+            box-shadow: 0 0 10px var(--accent-color), 0 0 5px var(--accent-color);
+            width: 100%;
+            transition: height 0.1s ease-out, background-color 0.5s ease, box-shadow 0.5s ease;
+            border-radius: 0;
+        }
+
+        /* Terminal Position */
+        #terminal-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px; 
+            width: 100%;
+            max-width: 400px; 
+            z-index: 50;
+        }
+        @media (max-width: 640px) {
+            #terminal-wrapper {
+                right: 10px;
+                bottom: 10px;
+                max-width: calc(100% - 20px);
+            }
+        }
+        
+        /* Quick Access Button Style (New) */
+        .quick-access-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem; /* rounded-md */
+            font-weight: 700; /* bold */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            transition: all 0.3s;
+            transform: scale(1);
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+        }
+        .quick-access-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-color)60;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden mood-rushed">
+    
+    <div id="portfolio-content" class="transition-opacity duration-500">
+
+        <!-- Scroll Tracker --><div id="scroll-tracker">
+            <div id="scroll-progress" class="h-0"></div>
+        </div>
+
+        <!-- Navigation Bar --><header class="sticky top-0 z-40 bg-[--bg-color]/95 backdrop-blur-sm border-b border-[--border-color] transition-colors duration-500">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <a href="#home" class="text-xl font-bold hover:text-white flex items-center" style="color: var(--accent-color);">
+                        <i data-lucide="bolt" class="w-8 h-8 mr-2"></i> Nurahmed Multezem
+                    </a>
+                    <nav class="hidden md:flex space-x-8 items-center">
+                        <a href="#home" class="text-white hover:text-primary-accent transition duration-150" style="color: var(--text-color);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-color)'">Home</a>
+                        <div class="relative inline-block text-left">
+                            <button id="dropdown-toggle" type="button" class="inline-flex justify-center items-center px-3 py-2 text-white rounded-md transition duration-150 hover:bg-[--box-bg]" style="color: var(--accent-color); border: 1px solid var(--accent-color);">
+                                EXECUTE
+                                <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
+                            </button>
+                            <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-[--box-bg] ring-1 ring-white ring-opacity-10 hidden" style="border: 1px solid var(--accent-color); z-index: 60;">
+                                <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-toggle">
+                                    <a href="#experience" class="block px-4 py-2 text-sm text-[--text-color] hover:bg-[--border-color] transition duration-150" onclick="closeDropdown()">Experience</a>
+                                    <a href="#projects" class="block px-4 py-2 text-sm text-[--text-color] hover:bg-[--border-color] transition duration-150" onclick="closeDropdown()">Projects</a>
+                                    <a href="#resume" class="block px-4 py-2 text-sm text-[--text-color] hover:bg-[--border-color] transition duration-150" onclick="closeDropdown()">Resume</a>
+                                    <a href="#contact" class="block px-4 py-2 text-sm text-[--text-color] hover:bg-[--border-color] transition duration-150" onclick="closeDropdown()">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                    <button id="hamburger-btn" class="md:hidden p-2 rounded-md hover:bg-[--box-bg]">
+                        <i data-lucide="menu" class="w-6 h-6 menu-icon-closed text-[--text-color]"></i>
+                        <i data-lucide="x" class="w-6 h-6 menu-icon-open text-[--text-color]"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="mobile-menu" class="hidden md:hidden bg-[--bg-color] border-t border-[--border-color] py-2">
+                <nav class="flex flex-col space-y-2 px-4">
+                    <a href="#home" class="block py-2 text-[--text-color] hover:bg-[--box-bg] px-3 rounded-lg" onclick="closeMenu()">Home</a>
+                    <a href="#experience" class="block py-2 text-[--text-color] hover:bg-[--box-bg] px-3 rounded-lg" onclick="closeMenu()">Experience</a>
+                    <a href="#projects" class="block py-2 text-[--text-color] hover:bg-[--box-bg] px-3 rounded-lg" onclick="closeMenu()">Projects</a>
+                    <a href="#resume" class="block py-2 text-[--text-color] hover:bg-[--box-bg] px-3 rounded-lg" onclick="closeMenu()">Resume</a>
+                    <a href="#contact" class="block py-2 text-[--text-color] hover:bg-[--box-bg] px-3 rounded-lg" onclick="closeMenu()">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- START: GLOBAL TERMINAL NAVIGATION BOX -->
+        <div id="terminal-wrapper">
+            <div id="terminal-box" class="w-full">
+                <div class="text-sm font-mono bg-[--box-bg] p-4 rounded-lg border border-[--border-color] shadow-xl" style="box-shadow: 0 0 15px var(--accent-color)40;">
+                    <div class="text-white mb-1" style="color: var(--accent-color);">nurahmed@circuit-board:~$</div>
+                    <div class="flex items-center">
+                        <span class="mr-2" style="color: var(--accent-color);">&gt;</span>
+                        <input id="terminal-input" type="text" placeholder="CMD: type 'help' or section name" class="bg-transparent text-[--text-color] w-full focus:outline-none placeholder-gray-600" />
+                    </div>
+                    <div id="terminal-output" class="mt-2 hidden" style="color: #ff3333;"></div>
+                </div>
+            </div>
+        </div>
+        <!-- END: GLOBAL TERMINAL NAVIGATION BOX -->
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <!-- 1. Home Section (RECRUITER FOCUSED) -->
+            <section id="home" class="py-16 min-h-[calc(100vh-64px)] flex flex-col justify-center">
+                
+                <!-- Hero Intro -->
+                <div class="space-y-6 max-w-3xl">
+                    <p class="text-lg" style="color: var(--accent-color);">ACCESS GRANTED | Guest</p>
+                    <h1 class="text-5xl sm:text-7xl font-extrabold text-[--text-color]">Computer Engineer</h1>
+                </div>
+
+                <!-- Core Skills -->
+                <div class="mt-12 pt-8 max-w-3xl border-t border-[--border-color]">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--secondary-accent);">[CORE SKILLS]</h3>
+                    <div class="flex flex-wrap gap-4 text-[--text-color] opacity-90">
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">C/C++ (Embedded)</span>
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">VHDL/Verilog</span>
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">PCB Design (Altium)</span>
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">LTSpice/Matlab</span>
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">Microcontrollers (ARM)</span>
+                        <span class="px-3 py-1 bg-[--border-color] rounded-full" style="border: 1px dashed var(--accent-color);">Signal Processing</span>
+                    </div>
+                </div>
+
+                <!-- Quick Access (Recruiter CTAs) -->
+                <div class="mt-12 pt-8 max-w-3xl border-t border-[--border-color]">
+                    <h3 class="text-2xl font-bold mb-6" style="color: var(--secondary-accent);">[QUICK ACCESS]</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#resume" class="quick-access-btn">
+                            <i data-lucide="download" class="w-5 h-5 mr-2"></i> Download Resume
+                        </a>
+                        <a href="#contact" class="quick-access-btn">
+                            <i data-lucide="send" class="w-5 h-5 mr-2"></i> Contact Me
+                        </a>
+                        <a href="https://www.linkedin.com/in/nurahmed-multezem/" target="_blank" class="quick-access-btn" style="background-color: var(--secondary-accent); color: var(--bg-color);">
+                            <i data-lucide="linkedin" class="w-5 h-5 mr-2"></i> View LinkedIn
+                        </a>
+                        <a href="#" target="_blank" class="quick-access-btn" style="background-color: var(--box-bg); color: var(--text-color); border: 1px solid var(--border-color);">
+                            <i data-lucide="github" class="w-5 h-5 mr-2"></i> View GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- 2. Experience Section (Simplified and Continuous) -->
+            <section id="experience" class="py-20 pt-32">
+                <h2 class="text-4xl font-bold mb-10 text-[--text-color] pb-2 inline-block" style="border-bottom: 2px solid var(--accent-color);">Experience</h2>
+                <div class="space-y-12">
+                    <!-- Job 1 (Research Fellowship) -->
+                    <div class="relative bg-[--box-bg] p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-l-4" style="border-left-color: var(--accent-color);">
+                        <i data-lucide="box" class="absolute top-4 right-4 w-6 h-6 text-[--border-color]"></i>
+
+                        <h3 class="text-2xl font-semibold" style="color: var(--accent-color);">Undergraduate Research Fellow</h3>
+                        <p class="text-lg text-[--text-color] opacity-80">University of Maryland - INSPIRE LAB | Oct 2025 - Present</p>
+                        <p class="mt-4 text-[--text-color] opacity-70">
+                            Analysing the Human Connectome project motor data between resting state and motion(task) state. The core analysis is implemented via custom MATLAB scripts that I am contributing to, to assess directed, transient information flow within a network of active motor-related Regions of Interest (ROIs).
+                        <!-- More Details Section (Hidden by default) -->
+                        <div id="details-job1" class="details-section hidden pt-4 mt-4 border-t border-[--border-color]">
+                            <p class="text-sm text-[--text-color] opacity-50 italic">Non Disclosure Agreement: I will only disclose non-proprietary information regarding my work/contributions to this project.</p>
+                            <p class="text-[--text-color] opacity-70 mt-2 text-sm"></p>
+                            <h1 class="text-2xl font-semibold" style="color: var(--accent-color);">Top Skills Utilizing</h1>
+                            <ul class="list-disc ml-6 mt-4 space-y-2 text-[--text-color] opacity-70">
+                                <li>Matlab</li>
+                                <li>Python</li>
+                                <li>fMRI Data Analysis</li>
+                                <li>Statistics</li>
+                                    <li>Bayesian Information Criterion (BIC)</li>
+                                    <li>Alkaklike Information Criterion (AIC)</li>
+                                <li>Partial Correlation / Directed Connectivity</li>
+                                <li>Parallel Processing</li>
+                                <li>Finite Impulse Response (FIR)</li>
+                                <li>Data visualization</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Click for More Link (Confirmed to be present) -->
+                        <button onclick="toggleDetails('details-job1', this)" class="mt-4 text-sm font-semibold hover:underline" style="color: var(--secondary-accent);">
+                            [ACCESS MORE DATA]
+                        </button>
+                    </div>
+
+
+                    <!-- Job 2 (Firmware) -->
+                    <div class="relative bg-[--box-bg] p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-l-4" style="border-left-color: var(--accent-color);">
+                        <i data-lucide="briefcase" class="absolute top-4 right-4 w-6 h-6 text-[--border-color]"></i>
+
+                        <h3 class="text-2xl font-semibold" style="color: var(--accent-color);">Firmware/Embedded Systems Intern</h3>
+                        <p class="text-lg text-[--text-color] opacity-80">University of Maryland-Computational Sensorimotors Systems Lab | Jun 2025 - Sep 2025</p>
+                        <ul class="list-disc ml-6 mt-4 space-y-2 text-[--text-color] opacity-70">
+                            <li>Performed ASIC design verification using **SystemVerilog and UVM methodology**.</li>
+                            <li>Developed regression tests for critical timing and power sequences in the latest processor core.</li>
+                        </ul>
+
+                        <!-- More Details Section (Hidden by default) -->
+                        <div id="details-job2" class="details-section hidden pt-4 mt-4 border-t border-[--border-color]">
+                            <p class="text-sm text-[--text-color] opacity-50 italic">SYSTEM LOG: Detailed Task Manifest</p>
+                            <p class="text-[--text-color] opacity-70 mt-2 text-sm">Wrote functional coverage models and constrained random tests to achieve 95% coverage on key memory interface blocks. Worked closely with RTL designers to debug assertions and track coverage closure.</p>
+                            <h4 class="text-base font-medium mt-3" style="color: var(--accent-color);">Demo:</h4>              
+                            <img src="land.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>land gesture choosen among others using argmax</p>
+                            <img src="resetCameraPos.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>Reset Camera Position gesture choosen among others using argmax</p>
+                            <img src="stopAttack.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>Stop Attack gesture choosen among others using argmax</p>
+                        </div>
+
+                        <!-- Click for More Link (Confirmed to be present) -->
+                        <button onclick="toggleDetails('details-job2', this)" class="mt-4 text-sm font-semibold hover:underline" style="color: var(--secondary-accent);">
+                            [ACCESS MORE DATA]
+                        </button>
+                    </div>
+
+                    <!-- Job 3 (Research) -->
+                    <div class="relative bg-[--box-bg] p-6 rounded-xl shadow-xl transition duration-300 hover:shadow-2xl hover:border-l-4" style="border-left-color: var(--accent-color);">
+                        <i data-lucide="briefcase" class="absolute top-4 right-4 w-6 h-6 text-[--border-color]"></i>
+
+                        <h3 class="text-2xl font-semibold" style="color: var(--accent-color);">Signal Processing Research</h3>
+                        <p class="text-lg text-[--text-color] opacity-80">University of Maryland-Computational Sensorimotors Systems Lab | Jan 2025 - May 2025</p>
+
+
+                        <!-- More Details Section (Hidden by default) -->
+                        <div id="details-job2" class="details-section hidden pt-4 mt-4 border-t border-[--border-color]">
+                            <p class="text-sm text-[--text-color] opacity-50 italic">SYSTEM LOG: Detailed Task Manifest</p>
+                            <p class="text-[--text-color] opacity-70 mt-2 text-sm">Wrote functional coverage models and constrained random tests to achieve 95% coverage on key memory interface blocks. Worked closely with RTL designers to debug assertions and track coverage closure.</p>
+                            <h4 class="text-base font-medium mt-3" style="color: var(--accent-color);">Demo:</h4>              
+                            <img src="land.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>land gesture choosen among others using argmax</p>
+                            <img src="resetCameraPos.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>Reset Camera Position gesture choosen among others using argmax</p>
+                            <img src="stopAttack.png" 
+                                alt="Hand Wearable CAD Design" 
+                                class="w-full max-w-lg mt-2 rounded-lg shadow-md border border-[--border-color]"
+                            />
+                            <p>Stop Attack gesture choosen among others using argmax</p>
+                        </div>
+
+                        <!-- Click for More Link (Confirmed to be present) -->
+                        <button onclick="toggleDetails('details-job2', this)" class="mt-4 text-sm font-semibold hover:underline" style="color: var(--secondary-accent);">
+                            [ACCESS MORE DATA]
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 3. Projects Section (Simplified and Continuous) -->
+            <section id="projects" class="py-20 pt-32">
+                <h2 class="text-4xl font-bold mb-10 text-[--text-color] pb-2 inline-block" style="border-bottom: 2px solid var(--accent-color);">Projects</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1 (Two-Level Dynamic Branch Predictor ) -->
+                    <div class="project-card bg-[--box-bg] p-6 rounded-xl shadow-xl transition duration-300 ease-in-out border border-[--border-color] hover:shadow-2xl hover:translate-y-[-8px]">
+                        <i data-lucide="cpu" class="w-8 h-8 mb-4" style="color: var(--accent-color);"></i>
+                        <h3 class="text-xl font-semibold mb-2 text-[--text-color]">Two-Level Dynamic Branch Predictor </h3>
+                        <p class="text-[--text-color] opacity-70 mb-4">Designed a configurable branch predictor with saturating counters and global history logic, achieving 90% 
+                            prediction accuracy while analyzing LUT utilization and timing across configurations.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);">SystemVerilog</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);">Verilator</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);">Yosys</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);">Python</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 (Cache Controller Verification Environment ) -->
+                    <div class="project-card bg-[--box-bg] p-6 rounded-xl shadow-xl transition duration-300 ease-in-out border border-[--border-color] hover:shadow-2xl hover:translate-y-[-8px]">
+                        <i data-lucide="signal" class="w-8 h-8 mb-4" style="color: var(--accent-color);"></i>
+                        <h3 class="text-xl font-semibold mb-2 text-[--text-color]">Cache Controller Verification Environment </h3>
+                        <p class="text-[--text-color] opacity-70 mb-4">Built a cocotb-based constrained-random testbench for a direct-mapped cache controller, achieving 100% 
+                            functional coverage with assertions and protocol checks.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);"> SystemVerilog</span>
+                            <span class="text-xs font-medium px-2 py-1 rounded" style="background-color: var(--accent-color)20; color: var(--accent-color);">Cocotb</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 4. Resume Section (Continuous) -->
+            <section id="resume" class="py-20 pt-32 text-center">
+                <h2 class="text-4xl font-bold mb-6 text-[--text-color] pb-2 inline-block" style="border-bottom: 2px solid var(--accent-color);">Resume Download</h2>
+                <p class="text-xl text-[--text-color] opacity-80 mb-8">Access the full professional manifest.</p>
+                <a href="#" class="inline-flex items-center px-8 py-4 rounded-lg font-bold shadow-lg transition duration-300 transform hover:scale-105" 
+                   style="background-color: var(--accent-color); color: var(--bg-color); box-shadow: 0 0 20px var(--accent-color)60;">
+                    <i data-lucide="download" class="w-5 h-5 mr-2"></i>
+                    ACCESS: RESUME.PDF
+                </a>
+            </section>
+
+            <!-- 5. Contact Section (Continuous) -->
+            <section id="contact" class="py-20 pt-32 text-center">
+                <h2 class="text-4xl font-bold mb-6 text-[--text-color] pb-2 inline-block" style="border-bottom: 2px solid var(--accent-color);">Contact | ENGAGE LINK</h2>
+                <p class="text-xl text-[--text-color] opacity-80 max-w-2xl mx-auto mb-10">
+                    My inbox is ready for new challenges and opportunities.
+                </p>
+                
+                <a href="mailto:engineer@example.com" class="inline-flex items-center px-8 py-4 rounded-lg font-bold shadow-lg transition duration-300 transform hover:scale-105" 
+                   style="background-color: var(--accent-color); color: var(--bg-color); box-shadow: 0 0 20px var(--accent-color)60;">
+                    <i data-lucide="send" class="w-5 h-5 mr-2"></i>
+                    SEND INQUIRY
+                </a>
+
+                <div class="flex justify-center space-x-6 mt-12 text-[--text-color] opacity-70">
+                    <a href="#" target="_blank" class="transition duration-300" style="color: var(--text-color);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-color)'" aria-label="LinkedIn">
+                        <i data-lucide="linkedin" class="w-8 h-8"></i>
+                    </a>
+                    <a href="#" target="_blank" class="transition duration-300" style="color: var(--text-color);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-color)'" aria-label="GitHub">
+                        <i data-lucide="github" class="w-8 h-8"></i>
+                    </a>
+                    <a href="#" target="_blank" class="transition duration-300" style="color: var(--text-color);" onmouseover="this.style.color='var(--accent-color)'" onmouseout="this.style.color='var(--text-color)'" aria-label="Twitter/X">
+                        <i data-lucide="twitter" class="w-8 h-8"></i>
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center py-6 border-t border-[--border-color] mt-12 text-[--text-color] opacity-50 font-mono transition-colors duration-500">
+            <p>[SYSTEM STATUS: OK] :: C:\\multezemCE\2025</p>
+        </footer>
+    </div>
+    <!-- END PORTFOLIO CONTENT WRAPPER -->
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        const validCommands = ['home', 'experience', 'projects', 'resume', 'contact', 'help']; 
+        
+        // --- Navigation and Utility Functions ---
+
+        // Dropdown Logic
+        const dropdownToggle = document.getElementById('dropdown-toggle');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        
+        function toggleDropdown(event) {
+            if (dropdownMenu) {
+                dropdownMenu.classList.toggle('hidden');
+                if (event) event.stopPropagation();
+            }
+        }
+
+        function closeDropdown() {
+            if (dropdownMenu) {
+                dropdownMenu.classList.add('hidden');
+            }
+        }
+
+        if (dropdownToggle) {
+            dropdownToggle.addEventListener('click', toggleDropdown);
+        }
+
+        document.addEventListener('click', function(event) {
+            const isClickInside = dropdownToggle && dropdownMenu && (dropdownToggle.contains(event.target) || dropdownMenu.contains(event.target));
+            if (dropdownMenu && !dropdownMenu.classList.contains('hidden') && !isClickInside) {
+                closeDropdown();
+            }
+        });
+        
+        // Hamburger Menu Logic
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const header = document.querySelector('header');
+
+        function toggleMenu() {
+            const isMenuOpen = mobileMenu.classList.contains('hidden');
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                header.classList.add('menu-open');
+                closeDropdown();
+            } else {
+                mobileMenu.classList.add('hidden');
+                header.classList.remove('menu-open');
+            }
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            header.classList.remove('menu-open');
+        }
+
+        hamburgerBtn.addEventListener('click', toggleMenu);
+
+        // Scroll Tracker Logic
+        function updateScrollTracker() {
+            // Document height calculation
+            const docHeight = Math.max(
+                document.body.scrollHeight, document.documentElement.scrollHeight,
+                document.body.offsetHeight, document.documentElement.offsetHeight,
+                document.body.clientHeight, document.documentElement.clientHeight
+            );
+            
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const clientHeight = document.documentElement.clientHeight;
+            
+            // Total scrollable height
+            const totalHeight = docHeight - clientHeight;
+            
+            const scrolled = (totalHeight > 0) ? (winScroll / totalHeight) * 100 : 0;
+            const progressElement = document.getElementById("scroll-progress");
+            if (progressElement) {
+                progressElement.style.height = scrolled + "%";
+            }
+        }
+        window.addEventListener('scroll', updateScrollTracker);
+
+        // Terminal Navigation Logic (Now uses native anchor scrolling)
+        if (terminalInput) {
+            terminalInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const command = terminalInput.value.trim().toLowerCase();
+                    terminalInput.value = '';
+                    if (terminalOutput) {
+                        terminalOutput.classList.add('hidden');
+                        terminalOutput.textContent = '';
+                    }
+                    if (validCommands.includes(command)) {
+                        if (command === 'help') {
+                            if (terminalOutput) {
+                                terminalOutput.textContent = `Valid Commands: ${validCommands.filter(c => c !== 'help').join(', ')}. Try 'projects'.`;
+                                terminalOutput.classList.remove('hidden');
+                            }
+                        } else {
+                            // Set hash to navigate to the section using smooth scrolling
+                            window.location.hash = '#' + command;
+                        }
+                    } else {
+                        if (terminalOutput) {
+                            terminalOutput.textContent = `ERROR: Invalid command '${command}'. Type 'help' for options.`;
+                            terminalOutput.classList.remove('hidden');
+                        }
+                    }
+                }
+            });
+        }
+
+        // INITIAL LOAD
+        window.onload = function() {
+            // No need to call renderPage() anymore
+            updateScrollTracker();
+        };
+    </script>
+</body>
+</html>

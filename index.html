@@ -1,181 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the world of Nurahmed</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="mediaqueries.css">
-</head>
-<body>
-    <canvas id="shooting-star-bg"></canvas>
-
-    <div id = "main-content">
-    <!-- ...existing code... -->    
-    <nav id = "desktop-nav">
-        <video autoplay muted playsinline loop id = "bg-video">
-            <!--<source src = "./files/NeuronCircuitDemo.mov" type = "video/mp4"> -->
-        </video>
-
-        <div class = "logo"></div>
-        <div>
-            <ul class = "nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-    <nav id = "hamburger-nav">
-        <div class = "logo"> </div>
-        <div class = "hamburger-menu">
-            <div class = "hamburger-icon" onclick = "toggleMenu()">
-               <span></span>
-               <span></span>
-               <span></span>
-            </div>
-            <div class="menu-links">
-                <li><a href="#about" onclick = "toggleMenu()">About</a></li>
-                <li><a href="#skills" onclick = "toggleMenu()">Experience</a></li>
-                <li><a href="#projects" onclick = "toggleMenu()">Projects</a></li>
-                <li><a href="#contact" onclick = "toggleMenu()">Contact</a></li>
-            </div>
-    </nav>
-    <section id = "profile">
-        <!--
-        <div class = "section_pic-container">
-            <img src = "./files/nurahmedProfile.jpeg" alt="nurahmed profile picture">
-        </div>
-        -->
-        
-        <div class = "section_text">
-            <p class = "thank_you"> Thanks for checking out my portfolio! Whether you’re a recruiter, 
-            <p class = "thank_you">fellow engineer, friend, or lost stranger,</p>
-            <p class = "thank_you">I hope you enjoy the ride.</p>                              
-            <p class="section_text_p1">  </p>
-            <h1 class="title"> </h1>
-            <p class="section_text_p2">  </p>
-            <div class = "btn-container">
-                <button
-                    class="btn btn-color-2"
-                    onclick="window.open('./files/NurahmedMultezemResume.pdf')"
-                >
-
-                Download Resume
-                </button> 
-                <button
-                    class = "btn btn-color-1" onclick="location.href = './#contact'"
-                >
-                Contact Info
-                </button>
-
-            </div>
-            <div id = "socails-container">
-                <img 
-                    src="./files/linkedin.png" 
-                    alt = "My LinkedIn Profile"
-                    class = "icon" 
-                    onclick="location.href = '//linkedin.com/in/nurahmed-multezem/'"
-                    />
-                <img 
-                    src="./files/github.png" 
-                    alt = "My GitHub Profile"
-                    class = "icon" 
-                    onclick="location.href = '//github.com/nurahmed-multezem/'"
-                />
-
-            </div>
-        </div>
-    </section>
-
+    <title>Adaptive EE Portfolio - [Your Name]</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons for responsive UI elements --><script src="https://unpkg.com/lucide@latest"></script>
     
+    <style>
+        /* This file is now ONLY the mood selector.
+          All portfolio-related CSS has been removed.
+        */
+        :root {
+            /* Set default theme for the selector page itself */
+            --bg-color: #0d1117;
+            --text-color: #d8d8d8;
+            --accent-color: #00FF41; /* Neon Green */
+        }
 
-    <div class="scroll-bar">
-            <svg width="70" height="400" viewBox="0 0 70 400" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Glow filter for neon effect -->
-    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
 
-    <!-- Gradient for zigzag line -->
-    <linearGradient id="zigzag-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#00ffe7"/>
-      <stop offset="100%" stop-color="#1af0d1"/>
-    </linearGradient>
-  </defs>
+        /* Mood Selector Button Styling */
+        .mood-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease-in-out;
+            border: 2px solid transparent;
+            text-align: center; /* Ensure text is centered in <a> tags */
+            display: block; /* Make <a> tags behave like buttons */
+        }
+        .mood-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
 
-  <!-- Zigzag line -->
-  <path id="zigzag" d="M60,5 L5,90 L60,180 L5,270 L60,360" 
-        stroke="url(#zigzag-gradient)" stroke-width="10" fill="none" filter="url(#glow)" />
-
-  <!-- Glowing circle at top corner -->
-  <circle id="led" cx="60" cy="5" r="10" fill="#00ffe7" filter="url(#glow)" />
-
-  <circle cx="60" cy="5" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="5" cy="90" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="60" cy="180" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="5" cy="270" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-  <circle cx="60" cy="360" r="10" stroke="#00ffe7" stroke-width="3" fill="none" />
-
-</svg>
-
+    <!-- 1. INITIAL MOOD SELECTION SCREEN -->
+    <!-- This is now the only content on this page -->
+    <div id="mood-selector" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
+        <h1 class="text-4xl sm:text-6xl font-extrabold mb-12 text-white text-center">
+            [SYSTEM CHECK] | ANALYZE MOOD STATE
+        </h1>
+        <p class="text-xl text-gray-400 mb-10 text-center max-w-xl">
+            Select the mode that best reflects your current state to optimize the portfolio's interface and content presentation.
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-4 sm:gap-6">
+            <!-- 
+              UPDATED: Buttons are now <a> tags (links)
+              "Normal" links to normal.html
+              Others are placeholders linking to "#"
+            -->
+            <a href="normal.html" class="mood-btn">
+                <i data-lucide="monitor" class="w-6 h-6 mx-auto mb-2"></i> Normal (Hacker)
+            </a>
+            <a href="#" class="mood-btn" data-mood="calm">
+                <i data-lucide="cloud-lightning" class="w-6 h-6 mx-auto mb-2"></i> Calm (Zen)
+            </a>
+            <a href="#" class="mood-btn" data-mood="happy">
+                <i data-lucide="smile" class="w-6 h-6 mx-auto mb-2"></i> Happy (Vibrant)
+            </a>
+            <a href="sad.html" class="mood-btn" data-mood="sad">
+                <i data-lucide="heart" class="w-6 h-6 mx-auto mb-2"></i> Sad (Comfort)
+            </a>
+            <a href="rushed.html" class="mood-btn" data-mood="rushed">
+                <i data-lucide="zap" class="w-6 h-6 mx-auto mb-2"></i> Rushed (Focus)
+            </a>
+        </div>
     </div>
+    
+    <!-- All portfolio content and complex JS removed -->
 
-    <section id="experience" class="experience-section">
-  <h2 class="section-title">EXPERIENCE</h2>
-
-  <!-- Company Logo Bar -->
-  <div class="logo-bar">
-    <img src="Esurgi.png" alt="Esurgi">
-    <img src="INSPIRE.png" alt="INSPIRE">
-    <img src="UMD.png" alt="UMD">
-    <img src="MC.png" alt="MC">
-    <img src="LSPACE.png" alt="L'SPACE">
-  </div>
-
-  
-
-
-  <!-- Experience Timeline -->
-   
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-icon">
-         <img src="Esurgi.png" width="20%" height="20%" alt="Esurgi">
-      </div>
-      <div class="timeline-content">
-        <p>Esurgi – Hardware Engineering Intern</p>
-        <p>The Biostabilizer, a digital biofeedback device. 
-          Read more about it <a href="https://more-esurgi.com"> here </a>.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-icon">INSPIRE Lab- Undergraduate Research Fellow</div>
-      <div class="timeline-content">
-        <img src="INSPIRE.png" width="20%" height="20%" alt="INSPIRE Lab">
-        <p>Analyzing functional Magnetic Resonance Imaging fMRI data from the Human Connectome Project
-          <a href="https://more-INSPIRE.com"> here </a>.</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-icon">Computational Sensorimotor Systems Lab - Firmware/Embedded Engineer Intern</div>
-      <div class="timeline-content">
-        <img src="CSSL.png" width="40%" height="40%" alt="Computational Sensorimotor Systems Lab">
-        <p>Hand Gesture Recognition and Pointing Direction Wearable
-          <a href="https://more-INSPIRE.com"> here </a>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-    <script src="script.js"></script>
-    </div>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // All mood-switching and portfolio-related JS has been removed.
+        // This file is now just a static navigation page.
+    </script>
 </body>
 </html>
